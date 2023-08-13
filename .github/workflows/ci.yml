@@ -37,7 +37,7 @@ jobs:
     - name: Earthly version
       run: earthly --version
     - name: All Unit Tests
-      run: earthly --ci +all-unit-tests
+      run: earthly --ci +all-unit-test
     - name: All build
       run: earthly --ci +all-build
     - name: All docker
