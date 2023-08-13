@@ -17,6 +17,6 @@ earthly +all-unit
 | Lang      | +build | +docker | +lint| +unit-test|
 | ----------- | ----------- | ---- | ---| ---|
 | Go | :white_check_mark:  | :white_check_mark: | |  :white_check_mark:|
-| JS|  | 
-| Typescript|
+| JS| :white_check_mark:   | | | :white_check_mark: |
+| Typescript| :white_check_mark: | | | :white_check_mark: |
 | Python|
