@@ -1,0 +1,24 @@
+################################
+# Earthfile for typescript+esbuild+jest + docker based devserver
+################################
+
+VERSION 0.7
+FROM node:20-alpine3.17
+
+FROM ../../+npm-workspace-deps
+WORKDIR /monorepo/libs/addr
+
+
+# produces typescript transpiled to javascript
+compile:
+    # just do typechecks since esbuilt doesn't support it
+    RUN npx tsc -noEmit
+
+
+unit-test:
+    RUN npx jest --passWithNoTests --rootDir . --config /monorepo/jest.config.js --coverage
+
+# produces a dist package
+build:
+    RUN npx esbuild src/index.ts --bundle --sourcemap --minify --outdir=dist
+    SAVE ARTIFACT dist AS LOCAL dist

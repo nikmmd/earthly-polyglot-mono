@@ -1,0 +1,16 @@
+################################
+# Earthfile for svelte+vite+vitest
+################################
+
+VERSION 0.7
+
+FROM ../../+npm-workspace-deps
+WORKDIR /monorepo/web/svelte-app
+
+unit-test:
+    RUN npm test
+
+# produces a dist package
+build:
+    RUN npm run build
+    SAVE ARTIFACT dist AS LOCAL dist

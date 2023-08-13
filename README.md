@@ -10,3 +10,13 @@ earthly +all-docker
 earthly +all-unit
 
 ```
+
+
+# Features
+
+| Lang      | +build | +docker | +lint| +unit-test|
+| ----------- | ----------- | ---- | ---| ---|
+| Go | :white_check_mark:  | :white_check_mark: | |  :white_check_mark:|
+| JS|  | 
+| Typescript|
+| Python|

@@ -1,0 +1,44 @@
+name: CI
+
+on:
+  push:
+    branches: [ main ]
+  pull_request:
+    branches: [ main ]
+
+# env:
+#   EARTHLY_VERSION: v0.7.15
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    env:
+      # DOCKERHUB_USERNAME: ${{ secrets.DOCKERHUB_USERNAME }}
+      # DOCKERHUB_TOKEN: ${{ secrets.DOCKERHUB_TOKEN }}
+      FORCE_COLOR: 1
+    steps:
+    - uses: earthly/actions-setup@v1
+      with:
+        github-token: ${{ secrets.GITHUB_TOKEN }}
+        version: "0.7.15" # or latest
+        use-cache: true
+    - uses: actions/checkout@v3
+    - name: Put back the git branch into git (Earthly uses it for tagging)
+      run: |
+        branch=""
+        if [ -n "$GITHUB_HEAD_REF" ]; then
+          branch="$GITHUB_HEAD_REF"
+        else
+          branch="${GITHUB_REF##*/}"
+        fi
+        git checkout -b "$branch" || true
+    # - name: Docker Login
+    #   run: docker login --username "$DOCKERHUB_USERNAME" --password "$DOCKERHUB_TOKEN"
+    - name: Earthly version
+      run: earthly --version
+    - name: All Unit Tests
+      run: earthly --ci +all-unit-tests
+    - name: All build
+      run: earthly --ci +all-build
+    - name: All docker
+      run: earthly --ci +all-docker
