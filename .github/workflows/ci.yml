@@ -34,7 +34,7 @@ jobs:
           [ -d "/tmp/earthly-cache" ] && docker run --rm \
             -v earthly-cache:/volume \
             -v /tmp/earthly-cache:/filesystem \
-            alpine sh -c \
+            busybox sh -c \
             "cp -R /filesystem/* /volume/ && chmod -R 777 /volume"
       - uses: actions/checkout@v3
       # - uses: docker/login-action@v2
@@ -63,5 +63,5 @@ jobs:
           docker run --rm \
             -v earthly-cache:/volume \
             -v /tmp/earthly-cache:/filesystem \
-            alpine sh -c \
+            busybox sh -c \
             "rm -Rf /filesystem/* && cp -R /volume/* /filesystem/ && chmod -R 777 /filesystem"
