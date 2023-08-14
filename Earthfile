@@ -1,30 +1,24 @@
 VERSION 0.7
 
 all-build:
-    WAIT
-        BUILD ./service/go-svc1+build
-        BUILD ./libs/addr+build
-        BUILD ./web/svelte-app+build
-        BUILD ./service/py_poetry_svc1+build
-    END
+    BUILD ./service/go-svc1+build
+    BUILD ./libs/addr+build
+    BUILD ./web/svelte-app+build
+    BUILD ./service/py_poetry_svc1+build
     #Example remote build
     #BUILD  github.com/earthly/earthly/examples/go+build
 
 all-unit-test:
-    WAIT
-        BUILD ./service/go-svc1+unit-test
-        BUILD ./libs/addr+unit-test
-        BUILD ./web/svelte-app+unit-test
-        BUILD ./service/py_poetry_svc1+unit-test
-    END
+    BUILD ./service/go-svc1+unit-test
+    BUILD ./libs/addr+unit-test
+    BUILD ./web/svelte-app+unit-test
+    BUILD ./service/py_poetry_svc1+unit-test
 
 
 
 all-docker:
-    WAIT
-        BUILD ./service/go-svc1+docker
-        BUILD ./service/py_poetry_svc1+docker
-    END
+    BUILD ./service/go-svc1+docker
+    BUILD ./service/py_poetry_svc1+docker
     # WAIT
     #     DO +SCAN_WITH_TRIVY --image_name="nikmmd/go_svc1:latest"
     #     DO +SCAN_WITH_TRIVY --image_name="nikmmd/py_poetry_svc1:latest"
