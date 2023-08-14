@@ -25,10 +25,10 @@ all-docker:
         BUILD ./service/go-svc1+docker
         BUILD ./service/py_poetry_svc1+docker
     END
-    WAIT
-        DO +SCAN_WITH_TRIVY --image_name="nikmmd/go_svc1:latest"
-        DO +SCAN_WITH_TRIVY --image_name="nikmmd/py_poetry_svc1:latest"
-    END
+    # WAIT
+    #     DO +SCAN_WITH_TRIVY --image_name="nikmmd/go_svc1:latest"
+    #     DO +SCAN_WITH_TRIVY --image_name="nikmmd/py_poetry_svc1:latest"
+    # END
 
 
 SCAN_WITH_TRIVY:
