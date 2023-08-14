@@ -1,0 +1,48 @@
+VERSION 0.7
+
+FROM python:3.10-slim
+WORKDIR /src
+
+deps:
+    RUN pip install poetry
+    COPY pyproject.toml poetry.lock ./
+    COPY app ./app
+    COPY README.md ./README.md
+    COPY tests ./tests
+    RUN poetry install
+
+
+unit-test:
+    FROM +deps
+    RUN poetry run pytest
+
+build:
+    FROM +deps
+    RUN poetry build
+    SAVE ARTIFACT dist AS LOCAL dist
+
+docker:
+    FROM python:3.10-slim
+    WORKDIR /app
+    COPY +build/dist/*.whl ./
+    COPY +build/dist/*.tar.gz ./
+    #untar and expand(subfiles) the tar.gz
+    RUN tar -xzf *.tar.gz --strip-components=1
+    # install extras
+    RUN pip install *.whl
+    RUN pip install 'uvicorn[standard]'
+    #Cleanup
+    RUN rm -rf /usr/local/bin/pip \
+        && rm -rf /usr/local/bin/pip3 \
+        && rm -rf *.whl \
+        && rm -rf *.tar.gz 
+    USER nobody
+    CMD ["uvicorn", "app.main:app", "--host", "0.0.0.0", "--port", "8080"]
+    SAVE IMAGE py-poetry-svc1:latest
+
+
+
+# docker-scan:
+#     FROM +docker
+#     RUN pip install trivy
+#     RUN trivy --exit-code 1 --severity CRITICAL --no-progress py-poetry-svc1:latest

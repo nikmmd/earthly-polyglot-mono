@@ -4,6 +4,7 @@ all-build:
     BUILD ./service/go-svc1+build
     BUILD ./libs/addr+build
     BUILD ./web/svelte-app+build
+    BUILD ./service/py_poetry_svc1+build
     #Example remote build
     BUILD  github.com/earthly/earthly/examples/go+build
 
@@ -11,9 +12,12 @@ all-unit-test:
     BUILD ./service/go-svc1+unit-test
     BUILD ./libs/addr+unit-test
     BUILD ./web/svelte-app+unit-test
+    BUILD ./service/py_poetry_svc1+unit-test
+
 
 all-docker:
     BUILD ./service/go-svc1+docker
+    BUILD ./service/py_poetry_svc1+docker
 
 # We bootstrap the npm workspace deps
 # We track all js monorepo integrations here
