@@ -6,7 +6,7 @@ all-build:
     BUILD ./web/svelte-app+build
     BUILD ./service/py_poetry_svc1+build
     #Example remote build
-    BUILD  github.com/earthly/earthly/examples/go+build
+    #BUILD  github.com/earthly/earthly/examples/go+build
 
 all-unit-test:
     BUILD ./service/go-svc1+unit-test
@@ -31,3 +31,4 @@ npm-workspace-deps:
     RUN npm ci
     SAVE ARTIFACT package-lock.json AS LOCAL package-lock.json
     SAVE ARTIFACT package.json AS LOCAL package.json
+    SAVE ARTIFACT node_modules
