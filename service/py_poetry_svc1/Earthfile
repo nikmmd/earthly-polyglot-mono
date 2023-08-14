@@ -42,10 +42,3 @@ docker:
     USER nobody
     CMD ["uvicorn", "app.main:app", "--host", "0.0.0.0", "--port", "8080"]
     SAVE IMAGE --push $DOCKER_IMAGE_NAME
-
-
-
-# docker-scan:
-#     FROM +docker
-#     RUN pip install trivy
-#     RUN trivy --exit-code 1 --severity CRITICAL --no-progress py-poetry-svc1:latest
