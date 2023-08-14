@@ -1,5 +1,7 @@
 VERSION 0.7
 
+ARG --global DOCKER_IMAGE_NAME=nikmmd/go_svc1:latest
+
 deps:
     FROM golang:1.18-alpine
     WORKDIR /service/go-svc1
@@ -26,4 +28,4 @@ docker:
     USER nobody
     COPY +build/app .
     CMD ["./app"]
-    SAVE IMAGE go-svc1:latest
+    SAVE IMAGE --push $DOCKER_IMAGE_NAME
