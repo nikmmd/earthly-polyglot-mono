@@ -38,10 +38,11 @@ SCAN_WITH_TRIVY:
 npm-workspace-deps:
     FROM node:20-alpine3.17
     WORKDIR /monorepo
+    ENV NPM_CACHE_LOCATION=/npm-cache
     COPY package.json package-lock.json tsconfig.json jest.config.js ./
-    COPY libs ./libs
-    COPY web ./web
-    RUN npm ci
+    COPY --dir libs ./libs
+    COPY --dir web ./web
+    RUN --mount=type=cache,target=/npm-cache npm ci
     SAVE ARTIFACT package-lock.json AS LOCAL package-lock.json
     SAVE ARTIFACT package.json AS LOCAL package.json
     SAVE ARTIFACT node_modules
